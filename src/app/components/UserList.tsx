@@ -1,8 +1,7 @@
-// components/UserList.tsx
 'use client';
 
 import React, { useState } from 'react';
-import UserCard from './UserCard';  // Import UserCard
+import UserCard from './UserCard'; // Import UserCard component
 import UserForm from './UserForm';
 
 interface User {
@@ -16,8 +15,8 @@ interface User {
 
 interface UserListProps {
   users: User[];
-  onViewProfile: (userId: string) => void;  // Add `onViewProfile` function
-  onAddUser: (newUser: User) => void; 
+  onViewProfile: (userId: string) => void;
+  onAddUser: (newUser: User) => void; // Function to add a new user to the list
 }
 
 const UserList: React.FC<UserListProps> = ({ users, onViewProfile, onAddUser }) => {
@@ -62,7 +61,6 @@ const UserList: React.FC<UserListProps> = ({ users, onViewProfile, onAddUser }) 
           </select>
 
           {/* Add User Link Button */}
-          {/* Add User Button that triggers the modal */}
           <button
             onClick={() => setIsFormVisible(true)} // Show the modal when clicked
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
@@ -85,11 +83,13 @@ const UserList: React.FC<UserListProps> = ({ users, onViewProfile, onAddUser }) 
       {isFormVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-custom z-50">
           <div className="bg-white p-6 rounded-lg max-w-lg w-full">
-          <UserForm onSubmit={(newUser) => { 
-            onAddUser(newUser); 
-            setIsFormVisible(false); 
-            }}
-            onCancel={() => setIsFormVisible(false)} />
+            <UserForm
+              onSubmit={(newUser) => {
+                onAddUser(newUser); // Add new user to the list
+                setIsFormVisible(false); // Close the form after adding
+              }}
+              onCancel={() => setIsFormVisible(false)} // Close the form without adding
+            />
           </div>
         </div>
       )}
