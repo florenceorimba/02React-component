@@ -8,8 +8,8 @@ interface User {
   id: string;
   name: string;
   email: string;
-  avatar: string;
   role: string;
+  avatar: string | null;
   isActive: boolean;
 }
 

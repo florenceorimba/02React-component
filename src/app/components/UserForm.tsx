@@ -3,8 +3,16 @@
 
 import React, { useState } from 'react';
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string | null;
+  role: string;
+  isActive: boolean;
+}
 interface UserFormProps {
-  onSubmit: (user: any) => void;
+  onSubmit: (user: User) => void;
   onCancel: () => void;
 }
 
@@ -26,6 +34,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, onCancel }) => {
       name,
       email,
       role,
+      avatar: null,
       isActive,
     };
 

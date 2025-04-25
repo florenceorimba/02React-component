@@ -2,12 +2,13 @@
 'use client'; 
 
 import React from 'react';
+import Image from 'next/image'; 
 
 interface User {
   id: string;
   name: string;
   email: string;
-  avatar: string;
+  avatar: string | null;
   role: string;
   isActive: boolean;
 }
@@ -20,7 +21,11 @@ interface UserCardProps {
 const UserCard: React.FC<UserCardProps> = ({ user, onViewProfile }) => {
   return (
     <div className="mainp flex sm:flex-col lg:flex-row max-sm:flex-col items-center gap-4 p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105 bg-amber-200 dark:bg-gray-800">
-      <img src={user.avatar} alt={`${user.name}'s avatar`} className="w-16 h-16 rounded-full" />
+      <Image 
+      src={user.avatar || 'https://randomuser.me/api/portraits/men/5.jpg'}
+      alt={`${user.name}'s avatar`}
+      width={40}
+      height={40} className="w-[40px] h-[40px] rounded-full" />
       <div className="flex flex-col w-[180px]">
         <h3 className="name text-lg font-semibold text-blue-500">{user.name}</h3>
 

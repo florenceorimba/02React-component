@@ -3,12 +3,13 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  avatar: string;
+  avatar: string | null;
   role: string;
   isActive: boolean;
 }
@@ -29,7 +30,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onEdit, onBack, onDelet
     <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4">User Profile</h2>
       <div className="mb-4">
-        <img src={user.avatar} alt={user.name} className="rounded-full w-32 h-32 mx-auto" />
+        <Image 
+        src={user.avatar || 'https://randomuser.me/api/portraits/women/6.jpg'} 
+        alt={user.name}
+        width={40}
+        height={40}
+        className="rounded-full w-32 h-32 mx-auto" />
       </div>
       <div className="mb-4">
         <p className="text-lg font-semibold">Name: {user.name}</p>

@@ -10,7 +10,7 @@ interface User {
   email: string;
   role: string;
   isActive: boolean;
-  avatar: string;
+  avatar: string | null;
 }
 
 const HomePage: React.FC = () => {
@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <UserDashboard /> {/* Render UserDashboard */}
+      <UserDashboard onAddUser={handleAddUser} /> {/* Render UserDashboard */}
     </div>
   );
 };

@@ -7,12 +7,25 @@ import UserForm from './UserForm'; // Import UserForm component
 import EditUserForm from './EditUserForm'; // Import EditUserForm component
 import ThemeToggle from './ThemeToggle'; // Import ThemeToggle button
 
-const UserDashboard: React.FC = () => {
-  const [users, setUsers] = useState<any[]>([]); // State to manage users temporarily
-  const [selectedUser, setSelectedUser] = useState<any | null>(null);  // State to hold the selected user for the profile
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+  avatar: string | null;
+}
+interface UserDashboardProps {
+  onAddUser: (user: User) => void; // Add prop type
+}
+
+const UserDashboard: React.FC<UserDashboardProps> = ({onAddUser}) => {
+  const [users, setUsers] = useState<User[]>([]); // State to manage users temporarily
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);  // State to hold the selected user for the profile
   const [isEditing, setIsEditing] = useState(false);  // State to toggle between profile and editing form
   const [isFormVisible, setIsFormVisible] = useState(false);  // State to toggle the form visibility
 
+  useEffect(() => {
   const defaultUsers = [
     {
       id: '1',
@@ -65,7 +78,7 @@ const UserDashboard: React.FC = () => {
   ];
 
   // Load users from localStorage when the component mounts
-  useEffect(() => {
+  
     const savedUsers = localStorage.getItem('users');
     if (savedUsers) {
       setUsers(JSON.parse(savedUsers));
@@ -74,7 +87,10 @@ const UserDashboard: React.FC = () => {
     }
   }, []);
 
-  const handleAddUser = (newUser: any) => {
+  const handleAddUser = (newUser: User) => {
+      onAddUser(newUser); // Use onAddUser prop
+      setIsFormVisible(false);
+
     const updatedUsers = [...users, newUser];
     setUsers(updatedUsers); // Update the state to show the new user in the list
 
@@ -92,7 +108,7 @@ const UserDashboard: React.FC = () => {
     setIsEditing(true); // Set editing state to true to show the edit form
   };
 
-  const handleUpdateUser = (updatedUser: any) => {
+  const handleUpdateUser = (updatedUser: User) => {
     const updatedUsers = users.map((user) =>
       user.id === updatedUser.id ? updatedUser : user
     );
