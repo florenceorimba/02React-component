@@ -4,8 +4,17 @@
 import React, { useState, useEffect } from 'react';
 import UserDashboard from './components/UserDashboard'; // Import UserDashboard component
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+  avatar: string;
+}
+
 const HomePage: React.FC = () => {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const savedUsers = localStorage.getItem('users');
@@ -14,7 +23,7 @@ const HomePage: React.FC = () => {
     }
   }, []);
 
-  const handleAddUser = (newUser: any) => {
+  const handleAddUser = (newUser: User) => {
     const updatedUsers = [...users, newUser];
     setUsers(updatedUsers);
     localStorage.setItem('users', JSON.stringify(updatedUsers));
